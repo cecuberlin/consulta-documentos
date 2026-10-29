@@ -6,43 +6,73 @@
 <meta name="robots" content="noindex">
 <title>Consulta de documentos disponibles</title>
 <style>
-:root{--fondo:#f4f5f7;--carta:#fff;--texto:#1d2330;--suave:#5b6474;--borde:#d9dde4;--acento:#1f3a68;--ok:#1d6b3a;--okf:#e8f4ec;--no:#3d4554;--nof:#eef0f3;--avf:#fdf3e1;--av:#7a4d00}
+:root{--petroleo:#00405a;--celeste:#019be2;--fucsia:#de3176;--fondo:#f2f2f2;--gris:#edecec;--texto:#1a1f24;--suave:#5c6670;--borde:#d6dade}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--fondo);color:var(--texto);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px}
-.card{width:100%;max-width:520px;background:var(--carta);border:1px solid var(--borde);border-top:4px solid var(--acento);border-radius:10px;padding:28px 24px}
-.inst{margin:0 0 4px;font-size:.85rem;color:var(--suave);text-transform:uppercase;letter-spacing:.04em}
-h1{margin:0 0 18px;font-size:1.4rem}
-label{display:block;font-weight:600;margin-bottom:6px}
-.fila{display:flex;gap:8px}
-input{flex:1;min-width:0;padding:11px 12px;border:1px solid var(--borde);border-radius:6px;font:inherit}
-input:focus{outline:2px solid var(--acento);outline-offset:1px}
-button{background:var(--acento);color:#fff;border:0;border-radius:6px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
+html,body{margin:0}
+body{min-height:100vh;display:flex;flex-direction:column;background:var(--fondo);color:var(--texto);font:16px/1.55 Helvetica,"Helvetica Neue",Arial,sans-serif}
+.top{background:var(--petroleo);color:#fff}
+.top-in{max-width:760px;margin:0 auto;padding:18px 16px;display:flex;align-items:center;gap:16px}
+.top img{width:64px;height:64px;object-fit:contain;flex:none;background:#fff;border-radius:50%;padding:5px}
+.inst1{margin:0;font-size:1.15rem;font-weight:700;letter-spacing:.01em}
+.inst2{margin:2px 0 0;font-size:.9rem;opacity:.85}
+.franja{display:flex;height:6px}
+.franja span:first-child{flex:3;background:var(--celeste)}
+.franja span:last-child{flex:1;background:var(--fucsia)}
+.wrap{flex:1;width:100%;max-width:760px;margin:0 auto;padding:36px 16px 24px}
+.card{background:#fff;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:32px 28px;max-width:560px;margin:0 auto}
+.etq{display:inline-block;margin:0 0 10px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste)}
+h1{margin:0 0 10px;font-size:1.6rem;line-height:1.25;color:var(--petroleo)}
+.intro{margin:0 0 24px;color:var(--suave)}
+label{display:block;font-weight:700;margin-bottom:8px;color:var(--petroleo)}
+.fila{display:flex;gap:10px}
+input{flex:1;min-width:0;padding:12px 14px;border:1px solid var(--borde);border-radius:4px;font:inherit;font-size:1.05rem;letter-spacing:.03em;background:#fff}
+input:focus{outline:none;border-color:var(--celeste);box-shadow:0 0 0 3px rgba(1,155,226,.25)}
+button{background:var(--petroleo);color:#fff;border:0;border-radius:4px;padding:12px 22px;font:inherit;font-weight:700;cursor:pointer;transition:background .15s}
+button:hover{background:#00557a}
+button:focus-visible{outline:3px solid var(--celeste);outline-offset:2px}
 button:disabled{opacity:.6;cursor:default}
-.res{margin-top:18px;padding:14px 16px;border-radius:6px;background:var(--nof);color:var(--no)}
-.res p{margin:0 0 6px}
-.res.si{background:var(--okf);color:var(--ok)}
-.res.si a{color:var(--ok);font-weight:700;word-break:break-all}
-.res.aviso{background:var(--avf);color:var(--av)}
-.nota{margin:22px 0 0;font-size:.8rem;color:var(--suave)}
+@media(max-width:480px){.fila{flex-direction:column}.card{padding:24px 18px}h1{font-size:1.35rem}.top img{width:52px;height:52px}}
+.res{margin-top:22px;padding:16px 18px;border-radius:4px;border-left:5px solid #9aa3ad;background:var(--gris);display:flex;gap:14px;align-items:flex-start}
+.res svg{flex:none;width:26px;height:26px;margin-top:1px}
+.res p{margin:0}
+.res.si{background:#e7f5fc;border-color:var(--celeste);color:var(--petroleo)}
+.res.si a{display:inline-block;margin-top:6px;color:var(--petroleo);font-weight:700;word-break:break-all}
+.res.aviso{background:#fdeef4;border-color:var(--fucsia);color:#8a1c48}
+.nota{max-width:560px;margin:18px auto 0;font-size:.82rem;color:var(--suave);display:flex;gap:8px}
+.nota svg{flex:none;width:16px;height:16px;margin-top:2px;color:var(--celeste)}
+.pie{background:var(--petroleo);color:#fff;font-size:.85rem}
+.pie div{max-width:760px;margin:0 auto;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pie a{color:#fff}
 </style>
 </head>
 <body>
-<main class="card">
-  <p class="inst" id="inst"></p>
-  <h1 id="tit"></h1>
-  <form id="f" autocomplete="off">
-    <label for="q" id="et"></label>
-    <div class="fila">
-      <input id="q" type="text" inputmode="text" autocapitalize="characters" spellcheck="false">
-      <button id="b" type="submit">Consultar</button>
-    </div>
-  </form>
-  <div id="r" class="res" role="status" aria-live="polite" hidden></div>
-  <p class="nota">El dato que usted ingresa se verifica en su propio dispositivo: no se envía ni se guarda en ningún lugar.
-  Listado actualizado al <span id="fe"></span>.</p>
+<header class="top">
+  <div class="top-in">
+    <img id="logo" alt="Escudo del Ecuador" hidden>
+    <div><p class="inst1" id="inst1"></p><p class="inst2" id="inst2"></p></div>
+  </div>
+</header>
+<div class="franja" aria-hidden="true"><span></span><span></span></div>
+<main class="wrap">
+  <section class="card">
+    <p class="etq">Servicio en línea</p>
+    <h1 id="tit"></h1>
+    <p class="intro">Ingrese el dato solicitado para verificar si existe un documento a su nombre.</p>
+    <form id="f" autocomplete="off">
+      <label for="q" id="et"></label>
+      <div class="fila">
+        <input id="q" type="text" inputmode="text" autocapitalize="characters" spellcheck="false">
+        <button id="b" type="submit">Consultar</button>
+      </div>
+    </form>
+    <div id="r" class="res" role="status" aria-live="polite" hidden></div>
+  </section>
+  <p class="nota"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+  <span>El dato que usted ingresa se verifica en su propio dispositivo: no se envía ni se guarda en ningún lugar. Listado actualizado al <span id="fe"></span>.</span></p>
 </main>
+<footer class="pie"><div><span id="pieinst"></span><a id="web" target="_blank" rel="noopener" hidden>Sitio web oficial</a></div></footer>
 <script>
-var C = {"inst":"Embajada del Ecuador en Alemania · Sección Consular","t":"Consulta de documentos disponibles","et":"Número de cédula o pasaporte","ph":"Ej.: 1712345678","correo":"cecuberlin@cancilleria.gob.ec","si":"Existe un documento a su nombre. Por favor, comuníquese al siguiente correo: cecuberlin@cancilleria.gob.ec","no":"No existe un documento registrado con ese dato. Se realizan actualizaciones periódicas.","fecha":"29 de octubre de 2026","sal":"3dcd9a014becc7ba9ef36d1d346fe9b5","it":100000,"len":5,"cero":true,"h":["01791","03816","038a0","047f4","06016","07304","07a0f","07d96","0928f","0a4ab","0c064","0d06a","0ec30","0ece8","0edb1","11180","122d6","129a7","12c7e","146f4","1584e","16724","175f0","17eb5","18f17","19d5d","1be84","1c986","1d047","1ee0a","1f077","1f784","1f99b","1fabe","21312","229c4","22e26","22f18","23cef","244bd","24fb2","252d0","2683e","26a6d","26ea6","278a0","27ef2","29dc7","2a196","2e812","2ed69","2f75b","31374","32f3e","332ce","335fc","34252","35a2a","374e3","3845b","38c87","3d6d9","3e2e1","3f0b1","40085","40f82","421a8","42dad","43e1c","44aa6","44eaf","45e9e","46960","46de2","47c63","48f34","49889","4a1f5","4a344","4a65e","4bc88","4ec22","4f0bd","500d0","5045f","507d2","52186","52bf2","534a6","5487a","54c93","5539c","5563a","56093","56219","57de3","59011","59aca","5c405","5ddc4","5e4a9","5e936","60869","62e78","633e9","63b38","63ebc","6443b","65b0f","689a4","6a282","6d016","741bf","748d1","74fc1","75441","7588f","75b33","76313","76802","76e7e","78862","78da5","7b05d","7c990","80d69","82cfc","83196","83213","852c3","8583d","8636f","8737a","8819b","896b4","89fb0","8b39f","8bd47","8d919","8dc11","8ecb5","8eefa","90e21","910d1","93b0d","94325","94dc4","95f95","970ad","9745e","979fd","97a1b","980ae","98421","996fb","9b402","9cef7","9e041","9e803","9ecae","9f433","9f9c0","a0392","a0c62","a5a85","a752e","a7ca8","a7cf2","a7f89","a8c4c","a8dbf","a8dc6","aa97d","ac8be","ad44d","af8e6","b19bb","b242a","b2a1d","b36c0","b4386","b623f","b6f7a","b72f1","b73a8","b7740","b7d1b","b8704","b8d87","b9cdc","baad5","bb102","bbeaa","bcc7e","bcde9","bee96","c16e0","c1998","c1bcf","c269e","c2721","c2d93","c3481","c3a7f","c5f9c","c6ef7","c7e82","c8019","c896b","c9099","ce501","ce692","cf04e","cf9d7","cfab3","cfd50","d038a","d20f7","d2113","d2a07","d573d","d5a29","d5b05","d5f43","d775e","d8cb1","d8fdc","d944e","d9b0d","da70f","db036","db305","db641","db6e2","dbe8f","dd1e8","e0440","e16e5","e1a44","e1b59","e2779","e3ccf","e4d4b","e5685","e5fc5","e8510","e9051","e90c4","ea661","ea6e8","eb595","ec204","ed61a","ee6f7","ef0ea","efb7e","f0266","f0b4d","f1b0b","f1ffd","f2bc7","f59c0","f6bb9","f8c46","f95cb","f9d8a","f9ee7","fc042","fcaa4","fcf97","fe77c","ff384"]};
+var C = {"inst":"Embajada del Ecuador en Alemania · Sección Consular","t":"Consulta de documentos disponibles","et":"Número de cédula o pasaporte","ph":"Ej.: 1712345678","correo":"cecuberlin@cancilleria.gob.ec","si":"Existe un documento a su nombre. Por favor, comuníquese al siguiente correo: cecuberlin@cancilleria.gob.ec","no":"No existe un documento registrado con ese dato. Se realizan actualizaciones periódicas.","logo":"https://www.cancilleria.gob.ec/alemania/wp-content/uploads/sites/30/2024/01/cropped-Escudor-Ecuador-02-270x270.png","web":"https://www.cancilleria.gob.ec/alemania/","fecha":"29 de octubre de 2026","sal":"1a5c0412563208c3da2a82e5c10000ba","it":100000,"len":5,"cero":true,"h":["00a93","03481","04130","070f2","0837a","08524","08fa1","0964f","0aac1","0ac9d","0b2aa","0c73e","0d069","0dc8f","0e8df","0fafb","10a8a","11b1b","1291d","149a0","14d1a","1514f","1b1f4","1bba4","1cae2","1d032","1ed42","204c5","21297","228cc","22e61","230d7","249fb","255c3","2625a","264e0","276f0","2801c","29498","29639","2b042","2d76e","2d95f","2e553","2ef4a","2f170","2f4f9","3091f","30b7b","3109d","31ce5","31d9f","320e4","32486","34a10","36c50","38456","38601","38d8e","39883","3b97c","3c2d4","3e37c","3e758","3fb25","3fc01","425ee","42c46","42cb4","43bda","44711","44b5a","451c8","45f48","46837","473d9","479fa","489c3","4919e","49524","49ace","49cdd","4b572","4c652","4d42f","4d65f","4ed08","4f253","4f761","4fd02","5383e","58064","588c3","592a9","5953b","5993f","5a525","5aaa1","5aab2","5aad5","5c46c","5c6cd","5db5c","5e4e4","5ec54","5edfb","5ef99","5f0a9","604fe","61d7c","63005","63c2d","64aa2","65bd8","65c2f","65e82","6618f","662a0","6692e","698ae","6a01f","6ca65","6cf80","6d7a3","6dfff","6ead6","6f530","6f54a","6fe1f","7022e","70311","706e7","719bf","728f2","72b58","73682","7463e","75bd3","75c8a","765e2","76e28","77374","79319","797b6","7bc08","7c0b8","7d4f8","7d993","7dc04","7dcdc","7eccd","7f2e3","80625","80c62","8249c","82778","82f5c","841fa","84395","87a69","885e9","89b56","8a454","8a961","8b329","8b5d8","8ba03","8bc3c","8c5da","8cce4","8f2d3","8f5e8","905ec","908df","90a56","90b18","9153a","9385f","95344","962c6","96e20","98314","988b0","9904e","99055","9914a","994bc","9a6b7","9bf75","9c19a","9da70","9dbb8","9de91","a0023","a0c3c","a14e8","a1bf4","a2091","a2613","a2f69","a34e1","a37dc","a5f04","a6d29","a87be","a9204","a9a70","aa711","aa900","ab834","abfc5","acd41","ae216","af57b","af82e","afe5e","b0191","b1f3d","b276c","b2bb9","b323b","b3554","b4366","b6d06","b72e4","b8463","b87f6","b9ac6","b9db4","babdd","bb108","bba82","bbd20","bc2c9","bc6ac","bd3ca","bdda1","bf3de","bf6df","bfefb","c0120","c01f2","c1128","c1170","c2e66","c43e9","c4b9a","c5755","c583d","c7176","c8b91","c951c","c9c08","ca036","ca129","ca6d7","cb313","cb4f2","cc257","cc38b","cd289","cdae2","cdc0d","ce1fc","ce954","ce97d","cf00f","cf653","cf879","d12ed","d209a","d3849","d3f8c","d5811","d603b","d72e0","d81ce","d83b1","d8740","da679","da8b4","db35e","dbd20","dbd61","dc20a","dc3cd","dd4d4","de3b2","de7e3","df70f","dfc1e","e18fb","e1dce","e2f36","e5e31","e6600","e765e","e9bf2","eae1f","eb476","eb98f","eba7f","ed4d7","ede69","ee393","ef426","ef6ca","f24ed","f41dd","f5411","f5542","f58ae","f5d8d","f82ec","f8a54","f9192","f9e39","f9ff0","fa0d5","fa7ae","fd3a7","fe591","fe741","fee09","fee7b","ff177","ffdda"]};
 function normalizar(s, cero) {
   var v = String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z0-9]/g, '');
   if (cero && /^\d{9}$/.test(v)) v = '0' + v;
@@ -57,45 +87,59 @@ async function derivar(valor, sal, iter, largo) {
 (function () {
   var H = new Set(C.h);
   var q = document.getElementById('q'), b = document.getElementById('b'), r = document.getElementById('r');
-  document.getElementById('inst').textContent = C.inst;
+  var partes = C.inst.split('·');
+  document.getElementById('inst1').textContent = partes[0].trim();
+  document.getElementById('inst2').textContent = partes.slice(1).join('·').trim();
+  document.getElementById('pieinst').textContent = C.inst.replace(/s*·s*/g, ' · ');
   document.getElementById('tit').textContent = C.t;
+  if (C.logo) { var lg = document.getElementById('logo'); lg.onerror = function () { lg.hidden = true; }; lg.onload = function () { lg.hidden = false; }; lg.src = C.logo; }
+  if (C.web) { var w = document.getElementById('web'); w.href = C.web; w.hidden = false; }
+  var ICO = {
+    si: '<svg viewBox="0 0 24 24" fill="none" stroke="#019be2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6"/></svg>',
+    no: '<svg viewBox="0 0 24 24" fill="none" stroke="#6b7580" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>',
+    av: '<svg viewBox="0 0 24 24" fill="none" stroke="#de3176" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 7v6M12 16.5v.5"/></svg>'
+  };
+  function pintar(clase, ico, nodos) {
+    r.replaceChildren();
+    r.className = 'res ' + clase;
+    var t = document.createElement('div');
+    t.innerHTML = ico;
+    r.appendChild(t.firstChild);
+    var d = document.createElement('div');
+    nodos.forEach(function (n) { d.appendChild(typeof n === 'string' ? Object.assign(document.createElement('p'), { textContent: n }) : n); });
+    r.appendChild(d);
+    r.hidden = false;
+  }
   document.getElementById('et').textContent = C.et;
   document.getElementById('fe').textContent = C.fecha;
   q.placeholder = C.ph;
   document.getElementById('f').addEventListener('submit', async function (e) {
     e.preventDefault();
-    r.hidden = false;
     if (!window.crypto || !crypto.subtle) {
-      r.className = 'res aviso';
-      r.textContent = 'Su navegador no permite realizar la consulta. Intente con otro navegador o escríbanos a ' + C.correo + '.';
+      pintar('aviso', ICO.av, ['Su navegador no permite realizar la consulta. Intente con otro navegador o escríbanos a ' + C.correo + '.']);
       return;
     }
     var v = normalizar(q.value, C.cero);
     if (v.length < 3) {
-      r.className = 'res aviso';
-      r.textContent = 'Ingrese un dato válido.';
+      pintar('aviso', ICO.av, ['Ingrese un dato válido.']);
       return;
     }
     b.disabled = true;
-    r.className = 'res';
-    r.textContent = 'Consultando…';
+    b.textContent = 'Consultando…';
+    r.hidden = true;
     var t0 = Date.now();
     var h = await derivar(v, C.sal, C.it, C.len);
     var espera = 700 - (Date.now() - t0);
     if (espera > 0) await new Promise(function (ok) { setTimeout(ok, espera); });
     b.disabled = false;
-    r.replaceChildren();
+    b.textContent = 'Consultar';
     if (H.has(h)) {
-      r.className = 'res si';
-      var p = document.createElement('p');
-      p.textContent = C.si;
       var a = document.createElement('a');
       a.href = 'mailto:' + C.correo + '?subject=' + encodeURIComponent('Consulta de documento');
       a.textContent = C.correo;
-      r.append(p, a);
+      pintar('si', ICO.si, [C.si, a]);
     } else {
-      r.className = 'res';
-      r.textContent = C.no;
+      pintar('no', ICO.no, [C.no]);
     }
   });
 })();
